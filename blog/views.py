@@ -1,12 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
+from django.core.paginator import Paginator
 # Create your views here.
 
 
 def post_list(request):
     articles = Article.objects.get_active_items()
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(articles, 2)
+    objects_list = paginator.get_page(page_number)
     context = {
-        'articles': articles
+        'articles': objects_list
     }
     return render(request, 'blog/post_list.html', context)
 
