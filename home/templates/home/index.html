@@ -1,5 +1,6 @@
 {% extends '_layout.html' %}
 {% load static %}
+{% load render_partial %}
 {% block title %}StandBlog | Home Page{% endblock %}
 {% block content %}
 <div class="main-banner header-text">
@@ -70,7 +71,7 @@
                                                 <ul class="post-tags">
                                                     <li><i class="fa fa-tags"></i></li>
                                                     {% for category in article.category.all %}
-                                                    <li><a href="#">{{ category.title }}</a>,</li>
+                                                    <li><a href="{% url 'blog:category_detail' category.id %}">{{ category.title }}</a>,</li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -90,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            {% include 'includes/sidebar.html' %}
+            {% render_partial 'sidebar_partial' %}
         </div>
     </div>
 </section>

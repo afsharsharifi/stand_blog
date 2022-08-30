@@ -35,7 +35,7 @@
                     <div class="content">
                         <ul>
                             {% for category in categories %}
-                            <li><a href="#">- {{ category.title }}</a></li>
+                            <li><a href="{% url 'blog:category_detail' category.id %}">- {{ category.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -48,13 +48,7 @@
                     </div>
                     <div class="content">
                         <ul>
-                            <li><a href="#">Lifestyle</a></li>
-                            <li><a href="#">Creative</a></li>
-                            <li><a href="#">HTML5</a></li>
-                            <li><a href="#">Inspiration</a></li>
-                            <li><a href="#">Motivation</a></li>
-                            <li><a href="#">PSD</a></li>
-                            <li><a href="#">Responsive</a></li>
+                            <li><a href="#">{{ name }}</a></li>
                         </ul>
                     </div>
                 </div>

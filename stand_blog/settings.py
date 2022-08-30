@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     # Third Party Packages
     'django_cleanup.apps.CleanupConfig',
+    'django_render_partial',
 ]
 
 MIDDLEWARE = [

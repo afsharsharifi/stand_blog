@@ -24,7 +24,7 @@ class ArticleManager(models.Manager):
 class Article(models.Model):
     title = models.CharField(max_length=150)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name="articles")
     body = models.TextField()
     image = models.ImageField(upload_to="images/articles", null=True, blank=True)
     slug = models.SlugField(blank=True, unique=True)
