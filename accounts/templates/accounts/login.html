@@ -1,0 +1,26 @@
+{% extends '_layout.html' %}
+{% load static %}
+{% block title %}StandBlog | Login{% endblock %}
+{% block content %}
+<section class="container mt-5 mb-5">
+    <div style="margin: 80px;"></div>
+    <h1 class="text-center mt-5 mb-5">Login Form</h1>
+    <div style="margin: 80px;"></div>
+    <form method="post" class="row" autocomplete="off">
+        {% csrf_token %}
+        <div class="col-12 mb-3">
+            <input class="form-control" type="text" name="username" placeholder="Username">
+        </div>
+        <div class="col-12 mb-3">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="col-12 mb-3">
+            <button class="btn bg-primary text-white">Login</button>
+        </div>
+    </form>
+    <span>
+        <a class="text-muted" href="{% url 'signup' %}">Don't have an account?</a>
+    </span>
+    <div style="margin: 120px;"></div>
+</section>
+{% endblock %}

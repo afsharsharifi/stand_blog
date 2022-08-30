@@ -1,0 +1,37 @@
+{% extends '_layout.html' %}
+{% load static %}
+{% block title %}StandBlog | Signup{% endblock %}
+{% block content %}
+<section class="container mt-5 mb-5">
+    <h1 class="text-center mt-5 mb-5">Signup Form</h1>
+    <div class="d-flex flex-column justify-content-center">
+        {% for error in errors %}
+        <div class="bg-danger px-2 rounded mb-2 d-flex align-items-center">
+            <i class="fa fa-times text-white mx-2"></i>
+            <p class=" text-white">{{ error }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <form method="post" class="row" autocomplete="off">
+        {% csrf_token %}
+        <div class="col-12 mb-3">
+            <input class="form-control" type="text" name="username" placeholder="Username" value="afshar">
+        </div>
+        <div class="col-12 mb-3">
+            <input class="form-control" type="email" name="email" placeholder="Email" value="afsharsharifi2020@gmail.com">
+        </div>
+        <div class="col-12 mb-3">
+            <input class="form-control" type="password" name="password" placeholder="Password" value="1234">
+        </div>
+        <div class="col-12 mb-3">
+            <input class="form-control" type="password" name="re_password" placeholder="Password Confirm" value="1234">
+        </div>
+        <div class="col-12 mb-3">
+            <button class="btn bg-primary text-white">Signup</button>
+        </div>
+    </form>
+    <span class="text-muted">
+        <a class="text-muted" href="{% url 'login' %}">Do you have account?</a>
+    </span>
+</section>
+{% endblock %}

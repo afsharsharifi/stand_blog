@@ -1,0 +1,53 @@
+<header class="">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <h2>Stand Blog<em>.</em></h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog Entries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="post-details.html">Post Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    </li>
+                    {% if not request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <div class="d-flex align-items-center">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <span>|</span>
+                            <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <div class="d-flex align-items-center">
+                            {% if request.user.profile.image %}
+                            <img src="{{ request.user.profile.image.url }}" alt="" style="width: 50px; border-radius: 50%;">
+                            {% endif %}
+                            <a class="nav-link" href="/admin">{{ request.user }}</a>
+                            <span>|</span>
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

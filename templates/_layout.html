@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% include 'includes/_header_references.html' %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    {% include 'includes/header.html' %}
+    <div class="heading-page header-text">
+        {% block content %}{% endblock %}
+    </div>
+    {% include 'includes/footer.html' %}
+    {% include 'includes/_footer_references.html' %}
+</body>
+
+</html>
