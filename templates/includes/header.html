@@ -9,7 +9,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'index' %}">Home
                             <span class="sr-only">(current)</span>
                         </a>
@@ -17,7 +17,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About Us</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'blog:post_list' %}">Blog Entries</a>
                     </li>
                     <li class="nav-item">
@@ -26,9 +26,9 @@
                     {% if not request.user.is_authenticated %}
                     <li class="nav-item">
                         <div class="d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
                             <span>|</span>
-                            <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'signup' %}active{% endif %}" href="{% url 'signup' %}">Signup</a>
                         </div>
                     </li>
                     {% else %}
