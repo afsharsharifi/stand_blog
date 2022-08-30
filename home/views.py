@@ -5,8 +5,9 @@ from blog.models import Article
 
 def index_page(request):
     articles = Article.objects.get_active_items()
-    print(f"The Result is => {Article.objects.counter()}")
+    recent_articles = Article.objects.get_active_items().order_by("-created")[:3]
     context = {
         "articles": articles,
+        "recent_articles": recent_articles,
     }
     return render(request, 'home/index.html', context)

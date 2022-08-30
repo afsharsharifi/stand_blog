@@ -1,57 +1,37 @@
 {% extends '_layout.html' %}
 {% load static %}
-{% block title %}StandBlog | Home Page{% endblock %}
+{% block title %}StandBlog | All Posts{% endblock %}
 {% block content %}
-<div class="main-banner header-text">
-    <div class="container-fluid">
-        <div class="owl-banner owl-carousel">
-            {% for article in articles %}
-            <div class="item">
-                {% if article.image %}
-                <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                {% else %}
-                <img src="https://via.placeholder.com/730x320?text={{ article.title }}" alt="{{ article.title }}">
-                {% endif %}
-                <div class="item-content">
-                    <div class="main-content">
-                        <div class="meta-category">
-                            {% for category in article.category.all %}
-                            <span>{{ category.title }}</span>
-                            {% endfor %}
-                        </div>
-                        <a href="{{ article.get_absolute_url }}">
-                            <h4>{{ article.title }}</h4>
-                        </a>
-                        <ul class="post-info">
-                            <li><a href="#">{{ article.author }}</a></li>
-                            <li><a href="#">{{ article.created|date:"d M Y" }}</a></li>
-                            <li><a href="#">12 Comments</a></li>
-                        </ul>
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h4>Recent Posts</h4>
+                        <h2>Our Recent Blog Entries</h2>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </div>
+    </section>
 </div>
+
 <!-- Banner Ends Here -->
 
-
-<section class="blog-posts">
+<section class="blog-posts grid-system">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="all-blog-posts">
                     <div class="row">
-                        {% for article in recent_articles %}
-                        <div class="col-lg-12">
+                        {% for article in articles %}
+                        <div class="col-lg-6">
                             <div class="blog-post">
                                 <div class="blog-thumb">
-                                    {% if article.image %}
                                     <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                                    {% else %}
-                                    <img src="https://via.placeholder.com/730x320?text={{ article.title }}" alt="{{ article.title }}">
-                                    {% endif %}
                                 </div>
                                 <div class="down-content">
                                     <span>Lifestyle</span>
@@ -60,25 +40,18 @@
                                     </a>
                                     <ul class="post-info">
                                         <li><a href="#">{{ article.author }}</a></li>
-                                        <li><a href="#">{{ article.created|date:"d M Y" }}</a></li>
+                                        <li><a href="#">{{ article.created }}</a></li>
                                         <li><a href="#">12 Comments</a></li>
                                     </ul>
                                     <p>{{ article.body }}</p>
                                     <div class="post-options">
                                         <div class="row">
-                                            <div class="col-6">
+                                            <div class="col-lg-12">
                                                 <ul class="post-tags">
                                                     <li><i class="fa fa-tags"></i></li>
                                                     {% for category in article.category.all %}
-                                                    <li><a href="#">{{ category.title }}</a>,</li>
+                                                    <span>{{ category.title }}</span>
                                                     {% endfor %}
-                                                </ul>
-                                            </div>
-                                            <div class="col-6">
-                                                <ul class="post-share">
-                                                    <li><i class="fa fa-share-alt"></i></li>
-                                                    <li><a href="#">Facebook</a>,</li>
-                                                    <li><a href="#"> Twitter</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -87,6 +60,14 @@
                             </div>
                         </div>
                         {% endfor %}
+                        <div class="col-lg-12">
+                            <ul class="page-numbers">
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,14 +88,18 @@
                                 </div>
                                 <div class="content">
                                     <ul>
-                                        {% for article in recent_articles %}
-                                        <li>
-                                            <a href="{{ article.get_absolute_url }}">
-                                                <h5>{{ article.title }}</h5>
-                                                <span>{{ article.created|date:"d M Y" }}</span>
-                                            </a>
-                                        </li>
-                                        {% endfor %}
+                                        <li><a href="post-details.html">
+                                                <h5>Vestibulum id turpis porttitor sapien facilisis scelerisque</h5>
+                                                <span>May 31, 2020</span>
+                                            </a></li>
+                                        <li><a href="post-details.html">
+                                                <h5>Suspendisse et metus nec libero ultrices varius eget in risus</h5>
+                                                <span>May 28, 2020</span>
+                                            </a></li>
+                                        <li><a href="post-details.html">
+                                                <h5>Swag hella echo park leggings, shaman cornhole ethical coloring</h5>
+                                                <span>May 14, 2020</span>
+                                            </a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -160,4 +145,5 @@
         </div>
     </div>
 </section>
+
 {% endblock %}

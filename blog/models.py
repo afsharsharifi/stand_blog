@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -26,18 +27,22 @@ class Article(models.Model):
     category = models.ManyToManyField(Category)
     body = models.TextField()
     image = models.ImageField(upload_to="images/articles", null=True, blank=True)
+    slug = models.SlugField(blank=True, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     objects = ArticleManager()
 
+    class Meta:
+        ordering = ("id",)
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("blog:post_detail", kwargs={"id": self.pk})
+        return reverse("blog:post_detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
-        self.title = self.title.replace(" ", "-")
+        self.slug = slugify(self.title)
         super(Article, self).save(args, kwargs)
