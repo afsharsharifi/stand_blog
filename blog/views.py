@@ -1,3 +1,4 @@
+from turtle import title
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category, Comment
 from django.core.paginator import Paginator
@@ -32,5 +33,17 @@ def category_detail(request, pk):
     articles = category.articles.get_active_items()
     context = {
         'articles': articles
+    }
+    return render(request, 'blog/post_list.html', context)
+
+
+def search_posts(request):
+    q = request.GET.get("q")
+    articles = Article.objects.filter(title__icontains=q)
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(articles, 2)
+    objects_list = paginator.get_page(page_number)
+    context = {
+        'articles': objects_list
     }
     return render(request, 'blog/post_list.html', context)

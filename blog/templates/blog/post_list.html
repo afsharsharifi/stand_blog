@@ -64,17 +64,17 @@
                             {% if articles.has_other_pages %}
                             <ul class="page-numbers">
                                 {% if articles.has_previous %}
-                                <li><a href="?page={{ articles.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a></li>
+                                <li><a href="?page={{ articles.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-angle-double-left"></i></a></li>
                                 {% endif %}
                                 {% for i in articles.paginator.page_range %}
                                 {% if articles.number == i %}
-                                <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                                <li class="active"><a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
                                 {% else %}
-                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                <li><a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
                                 {% endif %}
                                 {% endfor %}
                                 {% if articles.has_next %}
-                                <li><a href="?page={{ articles.next_page_number }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                <li><a href="?page={{ articles.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-angle-double-right"></i></a></li>
                                 {% endif %}
                             </ul>
                             {% endif %}
