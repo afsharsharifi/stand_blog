@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from blog.models import Article
+from .models import Message
+from home.forms import ContactUsForm
 # Create your views here.
 
 
@@ -16,3 +18,19 @@ def index_page(request):
         "articles": articles,
     }
     return render(request, 'home/index.html', context)
+
+
+def contact_us(request):
+    if request.method == "POST":
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.title += " Added"
+            instance.save()
+    else:
+        form = ContactUsForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'home/contact.html', context)

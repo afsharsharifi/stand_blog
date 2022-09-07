@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('sidebar-partial', views.sidebar_partial, name="sidebar_partial"),
     path('', views.index_page, name="index"),
+    path('contact', views.contact_us, name="contact"),
 ]

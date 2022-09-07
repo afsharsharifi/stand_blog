@@ -20,8 +20,8 @@
                     <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'blog:post_list' %}">Blog Entries</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                     </li>
                     {% if not request.user.is_authenticated %}
                     <li class="nav-item">
