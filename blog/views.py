@@ -1,7 +1,8 @@
-from turtle import title
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category, Comment
+from django.http import HttpResponse
 from django.core.paginator import Paginator
+from django.views.generic.base import View
 # Create your views here.
 
 
@@ -47,3 +48,22 @@ def search_posts(request):
         'articles': objects_list
     }
     return render(request, 'blog/post_list.html', context)
+
+
+class TestBaseView(View):
+    name = "Afshar Sharifi"
+
+    def get(self, request):
+        return HttpResponse(self.name)
+
+
+class HelloToAmir(TestBaseView):
+    name = "Amir"
+
+
+class HelloToAhmad(TestBaseView):
+    name = "Ahmad"
+
+
+class HelloToAli(TestBaseView):
+    name = "Ali"
