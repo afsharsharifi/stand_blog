@@ -7,12 +7,17 @@
     <h1 class="text-center mt-5 mb-5">Login Form</h1>
     <div style="margin: 80px;"></div>
     <form method="post" class="row" autocomplete="off">
+        {% if form.non_field_errors %}
+        <div class="col-12 mb-3 alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
         {% csrf_token %}
         <div class="col-12 mb-3">
-            <input class="form-control" type="text" name="username" placeholder="Username">
+            {{ form.username }}
         </div>
         <div class="col-12 mb-3">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+            {{ form.password }}
         </div>
         <div class="col-12 mb-3">
             <button class="btn bg-primary text-white">Login</button>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from .forms import LoginForm, EditUserForm
 
 # Create your views here.
 
@@ -33,13 +34,24 @@ def login_page(request):
     if request.user.is_authenticated:
         return redirect(reverse("index"))
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(username=form.cleaned_data.get("username"))
             login(request, user)
             return redirect(reverse("index"))
-    return render(request, "accounts/login.html")
+    else:
+        form = LoginForm()
+    return render(request, "accounts/login.html", {"form": form})
+
+
+def edit_profile_page(request):
+    form = EditUserForm(instance=request.user)
+    if request.method == "POST":
+        form = EditUserForm(instance=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("edit_profile"))
+    return render(request, "accounts/edit_prifile.html", {'form': form})
 
 
 def logout_page(request):
