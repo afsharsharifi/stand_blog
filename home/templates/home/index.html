@@ -65,7 +65,7 @@
                                         <li><a href="#">{{ article.created|date:"d M Y" }}</a></li>
                                         <li><a href="#">12 Comments</a></li>
                                     </ul>
-                                    <p>{{ article.body }}</p>
+                                    <p>{{ article.body|truncatewords:40 }}</p>
                                     <div class="post-options">
                                         <div class="row">
                                             <div class="col-6">

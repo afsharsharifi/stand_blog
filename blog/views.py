@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Article, Category, Comment
-from django.http import HttpResponse
 from django.core.paginator import Paginator
-from django.views.generic.base import View
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic import ListView
+import time
+
+from .models import Article, Category, Comment
+
 # Create your views here.
 
 
@@ -50,20 +54,22 @@ def search_posts(request):
     return render(request, 'blog/post_list.html', context)
 
 
-class TestBaseView(View):
-    name = "Afshar Sharifi"
+class ArticleList(TemplateView):
+    template_name = "blog/article_list.html"
 
-    def get(self, request):
-        return HttpResponse(self.name)
-
-
-class HelloToAmir(TestBaseView):
-    name = "Amir"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = Article.objects.get_active_items()
+        return context
 
 
-class HelloToAhmad(TestBaseView):
-    name = "Ahmad"
+class HomePageRedirect(RedirectView):
+    pattern_name = "blog:post_list"
+    permanent = False
+    query_string = False
 
-
-class HelloToAli(TestBaseView):
-    name = "Ali"
+    def get_redirect_url(self, *args, **kwargs):
+        for i in range(10):
+            print(i)
+            time.sleep(1)
+        return super().get_redirect_url(*args, **kwargs)
