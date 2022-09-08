@@ -6,5 +6,5 @@ urlpatterns = [
     path('categories/<int:pk>', views.category_detail, name='category_detail'),
     path('search', views.search_posts, name='search_posts'),
     path('red', views.HomePageRedirect.as_view(), name='red_view'),
-    path('<slug:slug>', views.post_detail, name='post_detail'),
+    path('<slug:slug>', views.ArticleDetail.as_view(), name='post_detail'),
 ]
