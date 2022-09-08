@@ -1,0 +1,23 @@
+{% extends '_layout.html' %}
+{% load static %}
+{% block title %}StandBlog | Message List{% endblock %}
+{% block content %}
+<section class="container my-5">
+    {% for message in message_list %}
+    <div class="alert alert-info">
+        <div class="d-flex align-items-center justify-content-between">
+            <h4>{{ message.title }} By {{ message.email }}</h4>
+            <div>
+                <a class="btn btn-primary" href="{% url 'edit_message' message.id %}">
+                    <i class="fa fa-edit text-white"></i>
+                </a>
+                <a class="btn btn-danger" href="{% url 'delete_message' message.id %}">
+                    <i class="fa fa-trash text-white"></i>
+                </a>
+            </div>
+        </div>
+        <p>{{ message.text }}</p>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

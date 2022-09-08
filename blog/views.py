@@ -2,8 +2,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView
-import time
+from django.views.generic import ListView, DetailView, ArchiveIndexView
+from .mixins import CustomLoginRequiredMixin
 
 from .models import Article, Category, Comment
 
@@ -54,7 +54,7 @@ def search_posts(request):
     return render(request, 'blog/post_list.html', context)
 
 
-class ArticleList(ListView):
+class ArticleList(CustomLoginRequiredMixin, ListView):
     model = Article
     context_object_name = "articles"
     paginate_by = 2
@@ -89,5 +89,9 @@ class HomePageRedirect(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         for i in range(10):
             print(i)
-            time.sleep(1)
         return super().get_redirect_url(*args, **kwargs)
+
+
+class ArchiveIndexArticleView(ArchiveIndexView):
+    model = Article
+    date_field = "created"
