@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}StandBlog | Admin{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/custom_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Admin Panel</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
