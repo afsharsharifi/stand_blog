@@ -76,3 +76,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.body
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes", verbose_name="User")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="likes", verbose_name="Article")
+
+    class Meta:
+        verbose_name = "Like"
+        verbose_name_plural = "Likes"
+
+    def __str__(self):
+        return f"{self.user.username} {self.article.title}"

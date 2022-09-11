@@ -1,0 +1,18 @@
+.like-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #f48840;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.like-btn:hover {
+    color: #f4884088;
+}
+
+.like-btn i {
+    font-size: 16pt;
+}

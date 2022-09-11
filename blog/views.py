@@ -1,11 +1,11 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic import ListView, DetailView, ArchiveIndexView
 from .mixins import CustomLoginRequiredMixin
 
-from .models import Article, Category, Comment
+from .models import Article, Category, Comment, Like
 
 # Create your views here.
 
@@ -77,6 +77,10 @@ class ArticleDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.user.likes.filter(article__slug=self.object.slug, user_id=self.request.user.id).exists():
+            context["is_liked"] = True
+        else:
+            context["is_liked"] = False
         context["name"] = "Afshar Sharifi"
         return context
 
@@ -95,3 +99,13 @@ class HomePageRedirect(RedirectView):
 class ArchiveIndexArticleView(ArchiveIndexView):
     model = Article
     date_field = "created"
+
+
+def like_view(request, slug, pk):
+    try:
+        like = Like.objects.get(article__slug=slug, user_id=request.user.id)
+        like.delete()
+    except:
+        Like.objects.create(article_id=pk, user_id=request.user.id)
+
+    return redirect("blog:post_detail", slug)

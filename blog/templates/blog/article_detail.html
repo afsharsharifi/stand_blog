@@ -53,7 +53,13 @@
                                     </p>
                                     <div class="post-options">
                                         <div class="row">
-                                            <div class="col-6">
+                                            <div class="col-4">
+                                                <a href="{% url 'blog:like_view' article.slug article.id %}" class="like-btn">
+                                                    <i class="fa {% if is_liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
+                                                    <span class="text-black">{{ article.likes.count }}</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4">
                                                 <ul class="post-tags">
                                                     <li><i class="fa fa-tags"></i></li>
                                                     {% for category in article.category.all %}
@@ -61,7 +67,7 @@
                                                     {% endfor %}
                                                 </ul>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <ul class="post-share">
                                                     <li><i class="fa fa-share-alt"></i></li>
                                                     <li><a href="#">Facebook</a>,</li>
