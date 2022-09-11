@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic import ListView, DetailView, ArchiveIndexView
@@ -102,10 +102,19 @@ class ArchiveIndexArticleView(ArchiveIndexView):
 
 
 def like_view(request, slug, pk):
+    context = {}
     try:
         like = Like.objects.get(article__slug=slug, user_id=request.user.id)
         like.delete()
+        context = {
+            "response": "disliked",
+            "like_count": Like.objects.filter(article__slug=slug).count(),
+        }
     except:
         Like.objects.create(article_id=pk, user_id=request.user.id)
+        context = {
+            "response": "liked",
+            "like_count": Like.objects.filter(article__slug=slug).count(),
+        }
 
-    return redirect("blog:post_detail", slug)
+    return JsonResponse(context)

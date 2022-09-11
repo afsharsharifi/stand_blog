@@ -54,10 +54,10 @@
                                     <div class="post-options">
                                         <div class="row">
                                             <div class="col-4">
-                                                <a href="{% url 'blog:like_view' article.slug article.id %}" class="like-btn">
-                                                    <i class="fa {% if is_liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
-                                                    <span class="text-black">{{ article.likes.count }}</span>
-                                                </a>
+                                                <button id="like-btn" class="like-btn">
+                                                    <i id="like-icon" class="fa {% if is_liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
+                                                    <span id="like-count" class="text-black">{{ article.likes.count }}</span>
+                                                </button>
                                             </div>
                                             <div class="col-4">
                                                 <ul class="post-tags">
@@ -177,5 +177,16 @@
         window.location.href = "#comment"
         document.getElementById("body-comment").placeholder = "Type Your Reply"
     }
+    document.getElementById("like-btn").addEventListener("click", function() {
+        $.get("{% url 'blog:like_view' article.slug article.id %}", function(data) {
+            if (data.response == "liked") {
+                document.getElementById("like-icon").classList = "fa fa-heart"
+                document.getElementById("like-count").innerHTML = data.like_count
+            } else {
+                document.getElementById("like-icon").classList = "fa fa-heart-o"
+                document.getElementById("like-count").innerHTML = data.like_count
+            }
+        })
+    })
 </script>
 {% endblock %}

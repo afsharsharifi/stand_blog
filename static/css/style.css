@@ -9,6 +9,10 @@
     gap: 5px;
 }
 
+.like-btn:focus {
+    outline: 0;
+}
+
 .like-btn:hover {
     color: #f4884088;
 }
